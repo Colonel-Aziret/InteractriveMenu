@@ -1,7 +1,6 @@
 package com.example.interactrivemenu.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
 
+
     @Autowired
     public SecurityConfig(@Lazy UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/admin/addDish", "/admin/updateDish/{dishId}", "/admin/deleteDish/{dishId}").hasRole("ADMIN") // Разрешаем доступ только админу
+                .antMatchers("/admin/addDish", "/admin/updateDish/{dishId}", "/admin/deleteDish/{dishId}").hasAuthority("ADMIN") // Разрешаем доступ только админу
                 .antMatchers("/**").permitAll() // Для всех остальных URL разрешаем доступ без авторизации
                 .and()
                 .addFilter(new UsernamePasswordAuthenticationFilter(authenticationManager()))
