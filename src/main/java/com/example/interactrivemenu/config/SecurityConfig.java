@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN") // Разрешаем доступ только админу
+                .antMatchers("/admin/addDish", "/admin/updateDish/{dishId}", "/admin/deleteDish/{dishId}").hasRole("ADMIN") // Разрешаем доступ только админу
                 .antMatchers("/**").permitAll() // Для всех остальных URL разрешаем доступ без авторизации
                 .and()
                 .addFilter(new UsernamePasswordAuthenticationFilter(authenticationManager()))
