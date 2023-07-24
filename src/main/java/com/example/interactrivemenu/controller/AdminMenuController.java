@@ -18,8 +18,7 @@ public class AdminMenuController {
     }
 
     // Роут для добавления нового блюда в меню
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/addDish")
+    @PostMapping("/add-dish")
     public ResponseEntity<String> addDish(@RequestBody Dish dish) {
         // Ваш код для добавления нового блюда в меню
         menuService.addDish(dish);
@@ -27,8 +26,7 @@ public class AdminMenuController {
     }
 
     // Роут для изменения существующего блюда в меню
-    @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/updateDish/{dishId}")
+    @PutMapping("/update-dish/{dishId}")
     public ResponseEntity<String> updateDish(@PathVariable Long dishId, @RequestBody Dish updatedDish) {
         // Ваш код для обновления информации о блюде в меню
         menuService.updateDish(dishId, updatedDish);
@@ -36,8 +34,7 @@ public class AdminMenuController {
     }
 
     // Роут для удаления блюда из меню
-    @DeleteMapping("/deleteDish/{dishId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/delete-dish/{dishId}")
     public ResponseEntity<String> deleteDish(@PathVariable Long dishId) {
         // Ваш код для удаления блюда из меню
         menuService.deleteDish(dishId);
