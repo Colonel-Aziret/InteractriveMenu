@@ -44,14 +44,14 @@ public class KitchenController {
     }
 
     // Роут для получения всех кухонь
-    @GetMapping("/kitchens")
+    @GetMapping("/all-kitchens")
     public ResponseEntity<List<Kitchen>> getAllKitchens() {
         List<Kitchen> kitchens = kitchenService.getAllKitchens();
         return ResponseEntity.ok(kitchens);
     }
 
     // Роут для получения кухни по её идентификатору
-    @GetMapping("/kitchens/{kitchenId}")
+    @GetMapping("/kitchen/{kitchenId}")
     public ResponseEntity<Kitchen> getKitchenById(@PathVariable Long kitchenId) {
         Kitchen kitchen = kitchenService.getKitchenById(kitchenId);
         if (kitchen != null) {
