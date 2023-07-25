@@ -4,16 +4,17 @@ import com.example.interactrivemenu.model.Dish;
 import com.example.interactrivemenu.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
-public class AdminMenuController {
+public class MenuController {
     private final MenuService menuService;
 
     @Autowired
-    public AdminMenuController(MenuService menuService) {
+    public MenuController(MenuService menuService) {
         this.menuService = menuService;
     }
 
@@ -39,5 +40,23 @@ public class AdminMenuController {
         // Ваш код для удаления блюда из меню
         menuService.deleteDish(dishId);
         return ResponseEntity.ok("Dish deleted from the menu successfully!");
+    }
+
+    // Роут для выдачи всех блюд
+    @GetMapping("/all-dishes")
+    public ResponseEntity<List<Dish>> getAllDishes() {
+        List<Dish> dishes = menuService.getAllDishes();
+        return ResponseEntity.ok(dishes);
+    }
+
+    // Роут для выдачи блюда по его идентификатору
+    @GetMapping("/dish/{dishId}")
+    public ResponseEntity<Dish> getDishById(@PathVariable Long dishId) {
+        Dish dish = menuService.getDishById(dishId);
+        if (dish != null) {
+            return ResponseEntity.ok(dish);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

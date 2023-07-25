@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MenuService {
@@ -40,5 +42,16 @@ public class MenuService {
     public void deleteDish(Long dishId) {
         // Ваша бизнес-логика для удаления блюда из меню
         dishRepository.deleteById(dishId);
+    }
+
+    // Метод для получения всех блюд
+    public List<Dish> getAllDishes() {
+        return dishRepository.findAll();
+    }
+
+    // Метод для получения блюда по его идентификатору
+    public Dish getDishById(Long dishId) {
+        Optional<Dish> dishOptional = dishRepository.findById(dishId);
+        return dishOptional.orElse(null);
     }
 }

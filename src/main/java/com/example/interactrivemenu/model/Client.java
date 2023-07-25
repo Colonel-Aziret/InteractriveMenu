@@ -10,7 +10,8 @@ import java.util.List;
 @Data
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_sequence")
+    @SequenceGenerator(name = "client_sequence", sequenceName = "client_sequence", allocationSize = 1)
     private Long id;
 
     @Column(name = "name")

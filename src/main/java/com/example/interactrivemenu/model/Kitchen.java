@@ -10,11 +10,16 @@ import java.util.List;
 @Data
 public class Kitchen {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "kitchen_sequence")
+    @SequenceGenerator(name = "kitchen_sequence", sequenceName = "kitchen_sequence", allocationSize = 1)
     private Long id;
 
     @Column(name = "name")
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 
     // ID блюда
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

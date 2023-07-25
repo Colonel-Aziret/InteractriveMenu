@@ -10,7 +10,8 @@ import java.util.List;
 @Data
 public class Restaurant {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "restaurant_sequence")
+    @SequenceGenerator(name = "restaurant_sequence", sequenceName = "restaurant_sequence", allocationSize = 1)
     private Long id;
 
     @Column(name = "name")
@@ -21,6 +22,9 @@ public class Restaurant {
 
     @Column(name = "phone_number")
     private String phoneNumber;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "restaurant")
+    private List<Kitchen> kitchens;
 
     // Связать с меню
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

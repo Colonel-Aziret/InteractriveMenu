@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("admin")
                 .password("{noop}admin123")
-                .roles("USER", "ADMIN");
+                .roles("ADMIN");
     }
 
     // Авторизация: укажите, какая роль может получить доступ к какому URL-адресу
@@ -50,10 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/admin-login").hasRole("ADMIN")
-                .antMatchers("/add-dish").hasRole("ADMIN")
-                .antMatchers("/update-dish/**").hasRole("ADMIN")
-                .antMatchers("/delete-dish/**").hasRole("ADMIN")
+                .antMatchers("/admin-login").hasAuthority("ADMIN")
+                .antMatchers("/add-dish").hasAuthority("ADMIN")
+                .antMatchers("/update-dish/**").hasAuthority("ADMIN")
+                .antMatchers("/delete-dish/**").hasAuthority("ADMIN")
                 .and()
                 .csrf().disable()
                 .headers().frameOptions().disable()
